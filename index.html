@@ -3,6 +3,7 @@
 
 <head>
     <script type='text/javascript' src='bower_components/knockout/dist/knockout.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <style type="text/css">
         html,
         body {
@@ -30,6 +31,11 @@
             margin: 0 0 10px 0;
             text-align: left;
         }
+
+        #pano {
+            width: 200px;
+            height: 200px;
+        }
     </style>
 </head>
 
@@ -37,19 +43,20 @@
     <div class="container">
         <h1>Preschools</h1>
         <div id="map"></div>
+        <button id="getInfo"></button>
         <input type="text" id="myInput" placeholder="Search for names..">
         <button data-bind="click: mySchools">Filter</button>
         <ul data-bind="foreach: school">
             <li data-bind="visible: flag()">
-                <span data-bind="text: name"></span>
+                <span data-bind="text: name, click: $parent.getMarker"></span>
             </li>
         </ul>
     </div>
 
     <script>
-        var map;
+        var map, schoolInfoWindow;
         var markers = [];
-        var positions = [{
+        var positions = [];/*{
                 title: 'Bright Horizons',
                 location: {
                     lat: 47.639159,
@@ -98,7 +105,71 @@
                     lng: -122.103015
                 }
             }
-        ]
+        ]*/
+
+
+      /*  var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=preschool&latitude=47.673988&longitude=-122.121513",
+            "method": "GET",
+            "headers": {
+                "authorization": "Bearer 9Pj--SWAuGOfObtpCllU8T60Idpse7ne3XxjHrL98T_uJEZa1u7zgcA6QkMxxzKUmAQ00Ty_cSiL1i-nQBVN-iQ6Gyt0LYzj-uLvaJwgSeP0VZhRfAvo6BYg2Qu8WXYx",
+                "cache-control": "no-cache",
+                "postman-token": "32cb1a94-c6ab-901c-1d58-b4594d656e8d"
+            }
+        }
+
+        $.ajax(settings).done(function(data) {
+         //console.log(data);
+         var title, location;
+         var schoolItem;
+
+           for(var i=0; i<data.businesses.length; i++){
+             title = data.businesses[i].name;
+             location = data.businesses[i].coordinates;
+             schoolItem = {title, location};
+             positions.push(schoolItem);
+
+       }
+     });*/
+        var request = $.ajax({
+          "async": true,
+          "crossDomain": true,
+          "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=preschool&latitude=47.673988&longitude=-122.121513",
+          "method": "GET",
+          "headers": {
+              "authorization": "Bearer 9Pj--SWAuGOfObtpCllU8T60Idpse7ne3XxjHrL98T_uJEZa1u7zgcA6QkMxxzKUmAQ00Ty_cSiL1i-nQBVN-iQ6Gyt0LYzj-uLvaJwgSeP0VZhRfAvo6BYg2Qu8WXYx",
+              "cache-control": "no-cache",
+              "postman-token": "32cb1a94-c6ab-901c-1d58-b4594d656e8d"
+          }
+      })
+          request.done(function(data) {
+           //console.log(data);
+
+           var title, location;
+           var schoolItem;
+
+             for(var i=0; i<data.businesses.length; i++){
+               title = data.businesses[i].name;
+               location = data.businesses[i].coordinates;
+               schoolItem = {title, location};
+               positions.push(schoolItem);
+         }
+         //it shows all the data
+         console.log(positions.length);
+
+          });
+          request.fail(function() {
+            alert("error");
+          });
+//it goes empty HERE
+        if(positions.length > 0){
+          console.log(positions.length);
+        }
+        else {
+          console.log("empty");
+        }
 
         function initMap() {
 
@@ -110,6 +181,7 @@
                 zoom: 12,
                 center: redmond
             });
+            schoolInfoWindow = new google.maps.InfoWindow();
 
             for (var i = 0; i < positions.length; i++) {
                 var marker = new google.maps.Marker({
@@ -118,7 +190,39 @@
                     map: map
                 });
                 markers.push(marker);
+                marker.addListener('click', function() {
+                    moreInfo(this, schoolInfoWindow);
+                });
+
             }
+
+        }
+
+        function moreInfo(marker, infowindow) {
+            infowindow.marker = marker;
+            var service = new google.maps.StreetViewService();
+            var radius = 50;
+
+            function processData(data, status) {
+                if (status == google.maps.StreetViewStatus.OK) {
+                    var nearStreetViewLocation = data.location.latLng;
+                    infowindow.setContent('<div>' + marker.title + '</div><div id="pano"></div><div id="yelpInfo"></div>');
+                    var panorama = new google.maps.StreetViewPanorama(
+                        document.getElementById('pano'), {
+                            position: nearStreetViewLocation,
+                            pov: {
+                                heading: 270,
+                                pitch: 0
+                            }
+                        });
+                } else {
+                    infowindow.setContent('<div>' + marker.title + '</div><div>The image is not found.</div>')
+                }
+
+            }
+
+            service.getPanoramaByLocation(marker.position, radius, processData);
+            infowindow.open(map, marker);
         }
 
         function schoolList(name, flag) {
@@ -147,11 +251,20 @@
                     }
                 }
             }
+            self.getMarker = function(ident) {
+                var infoOnSchool;
+                for (var i = 0; i < markers.length; i++) {
+                    if (markers[i].title === ident.name) {
+                        infoOnSchool = markers[i];
 
+                        return moreInfo(infoOnSchool, schoolInfoWindow);
+                    }
+                }
+            }
         }
         ko.applyBindings(new listViewModel());
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhEB5wCvm-NdmMI_G53GoFvtVGnzZe-0A&v=3&callback=initMap">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhEB5wCvm-NdmMI_G53GoFvtVGnzZe-0A&v=3&libraries=geometry&callback=initMap">
     </script>
 
 </body>
