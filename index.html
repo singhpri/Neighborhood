@@ -56,59 +56,60 @@
     <script>
         var map, schoolInfoWindow;
         var markers = [];
-        var positions = [];/*{
-                title: 'Bright Horizons',
-                location: {
-                    lat: 47.639159,
-                    lng: -122.142314
-                }
-            },
-            {
-                title: 'Childtime of Redmond',
-                location: {
-                    lat: 47.648688,
-                    lng: -122.129937
-                }
-            },
-            {
-                title: 'La Petite Academy',
-                location: {
-                    lat: 47.679538,
-                    lng: -122.126500
-                }
-            },
-            {
-                title: 'Overlake KinderCare',
-                location: {
-                    lat: 47.628773,
-                    lng: -122.137012
-                }
-            },
-            {
-                title: "Anny's Care",
-                location: {
-                    lat: 47.661411,
-                    lng: -122.142154
-                }
-            },
-            {
-                title: "The Goddard School",
-                location: {
-                    lat: 47.692930,
-                    lng: -122.036428
-                }
-            },
-            {
-                title: "Education Hill Learning Center",
-                location: {
-                    lat: 47.693148,
-                    lng: -122.103015
-                }
-            }
-        ]*/
+        var positions = [];
+        /*{
+                        title: 'Bright Horizons',
+                        location: {
+                            lat: 47.639159,
+                            lng: -122.142314
+                        }
+                    },
+                    {
+                        title: 'Childtime of Redmond',
+                        location: {
+                            lat: 47.648688,
+                            lng: -122.129937
+                        }
+                    },
+                    {
+                        title: 'La Petite Academy',
+                        location: {
+                            lat: 47.679538,
+                            lng: -122.126500
+                        }
+                    },
+                    {
+                        title: 'Overlake KinderCare',
+                        location: {
+                            lat: 47.628773,
+                            lng: -122.137012
+                        }
+                    },
+                    {
+                        title: "Anny's Care",
+                        location: {
+                            lat: 47.661411,
+                            lng: -122.142154
+                        }
+                    },
+                    {
+                        title: "The Goddard School",
+                        location: {
+                            lat: 47.692930,
+                            lng: -122.036428
+                        }
+                    },
+                    {
+                        title: "Education Hill Learning Center",
+                        location: {
+                            lat: 47.693148,
+                            lng: -122.103015
+                        }
+                    }
+                ]*/
 
 
-      /*  var settings = {
+        /*  var settings = {
             "async": true,
             "crossDomain": true,
             "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=preschool&latitude=47.673988&longitude=-122.121513",
@@ -134,41 +135,43 @@
        }
      });*/
         var request = $.ajax({
-          "async": true,
-          "crossDomain": true,
-          "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=preschool&latitude=47.673988&longitude=-122.121513",
-          "method": "GET",
-          "headers": {
-              "authorization": "Bearer 9Pj--SWAuGOfObtpCllU8T60Idpse7ne3XxjHrL98T_uJEZa1u7zgcA6QkMxxzKUmAQ00Ty_cSiL1i-nQBVN-iQ6Gyt0LYzj-uLvaJwgSeP0VZhRfAvo6BYg2Qu8WXYx",
-              "cache-control": "no-cache",
-              "postman-token": "32cb1a94-c6ab-901c-1d58-b4594d656e8d"
-          }
-      })
-          request.done(function(data) {
-           //console.log(data);
+            "async": true,
+            "crossDomain": true,
+            "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=preschool&latitude=47.673988&longitude=-122.121513",
+            "method": "GET",
+            "headers": {
+                "authorization": "Bearer 9Pj--SWAuGOfObtpCllU8T60Idpse7ne3XxjHrL98T_uJEZa1u7zgcA6QkMxxzKUmAQ00Ty_cSiL1i-nQBVN-iQ6Gyt0LYzj-uLvaJwgSeP0VZhRfAvo6BYg2Qu8WXYx",
+                "cache-control": "no-cache",
+                "postman-token": "32cb1a94-c6ab-901c-1d58-b4594d656e8d"
+            }
+        })
+        request.done(function(data) {
+            //console.log(data);
 
-           var title, location;
-           var schoolItem;
+            var title, location;
+            var schoolItem;
 
-             for(var i=0; i<data.businesses.length; i++){
-               title = data.businesses[i].name;
-               location = data.businesses[i].coordinates;
-               schoolItem = {title, location};
-               positions.push(schoolItem);
-         }
-         //it shows all the data
-         console.log(positions.length);
+            for (var i = 0; i < data.businesses.length; i++) {
+                title = data.businesses[i].name;
+                location = data.businesses[i].coordinates;
+                schoolItem = {
+                    title,
+                    location
+                };
+                positions.push(schoolItem);
+            }
+            //it shows all the data
+            console.log(positions.length);
 
-          });
-          request.fail(function() {
+        });
+        request.fail(function() {
             alert("error");
-          });
-//it goes empty HERE
-        if(positions.length > 0){
-          console.log(positions.length);
-        }
-        else {
-          console.log("empty");
+        });
+        //it goes empty HERE
+        if (positions.length > 0) {
+            console.log(positions.length);
+        } else {
+            console.log("empty");
         }
 
         function initMap() {
