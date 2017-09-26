@@ -4,6 +4,7 @@
 <head>
     <script type='text/javascript' src='bower_components/knockout/dist/knockout.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="styles.css">
     <script src="finder.js"></script>
 </head>
@@ -12,18 +13,28 @@
     <div class="container">
         <div class="list-box">
             <h1>Preschools</h1>
-            <div class="filter-box">
-                <input type="text" id="myInput" placeholder="Search for names..">
-                <button data-bind="click: mySchools">Filter</button>
+            <a data-bind="click: expand">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z"/>
+              </svg>
+            </a>
+            <div id="drawer" class="list">
+                <div class="filter-box">
+                    <input type="text" id="myInput" placeholder="Search for names..">
+                    <button data-bind="click: mySchools">Filter</button>
+                </div>
+                <ul data-bind="foreach: school">
+                    <li data-bind="visible: flag()">
+                        <span data-bind="text: name, click: $parent.getMarker"></span>
+                    </li>
+                </ul>
             </div>
-            <ul data-bind="foreach: school">
-                <li data-bind="visible: flag()">
-                    <span data-bind="text: name, click: $parent.getMarker"></span>
-                </li>
-            </ul>
-            <div id="map"></div>
         </div>
+        <div id="map"></div>
+
+    </div>
 </body>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhEB5wCvm-NdmMI_G53GoFvtVGnzZe-0A&v=3&libraries=geometry&callback=initMap">
 </script>
+
 </html>

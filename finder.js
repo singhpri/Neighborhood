@@ -41,8 +41,8 @@ function initMap() {
             positions.push(schoolItem);
         }
 
-         selectedIcon = iconColor('FFFF24');
-         defaultIcon = iconColor('ff0000');
+        selectedIcon = iconColor('FFFF24');
+        defaultIcon = iconColor('ff0000');
 
         for (var j = 0; j < positions.length; j++) {
             var marker = new google.maps.Marker({
@@ -89,7 +89,7 @@ function moreInfo(marker, infowindow) {
     var radius = 50;
 
     infowindow.addListener('closeclick', function() {
-      infowindow.marker = null;
+        infowindow.marker = null;
     });
 
     function processData(data, status) {
@@ -104,8 +104,7 @@ function moreInfo(marker, infowindow) {
                         pitch: 0
                     }
                 });
-        }
-        else {
+        } else {
             infowindow.setContent('<div>' + marker.title + '</div><div>The image is not found.</div>')
         }
     }
@@ -147,10 +146,12 @@ function listViewModel() {
                 infoOnSchool = markers[i];
                 infoOnSchool.setIcon(selectedIcon);
                 return moreInfo(infoOnSchool, schoolInfoWindow);
-            }
-            else {
-              markers[i].setIcon(defaultIcon)
+            } else {
+                markers[i].setIcon(defaultIcon)
             }
         }
+    }
+    self.expand = function(e) {
+        drawer.classList.toggle('open');
     }
 }
