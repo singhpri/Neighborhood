@@ -1,4 +1,4 @@
-'use strict';
+
 var map, schoolInfoWindow, selectedIcon, defaultIcon;
 var markers = [];
 var positions = [];
@@ -105,7 +105,7 @@ function moreInfo(marker, infowindow) {
                     }
                 });
         } else {
-            infowindow.setContent('<div>' + marker.title + '</div><div>The image is not found.</div>')
+            infowindow.setContent('<div>' + marker.title + '</div><div>The image is not found.</div>');
         }
     }
     service.getPanoramaByLocation(marker.position, radius, processData);
@@ -137,7 +137,7 @@ function listViewModel() {
                 markers[i].setMap(null);
             }
         }
-    }
+    };
 
     self.getMarker = function(ident) {
         var infoOnSchool;
@@ -147,11 +147,11 @@ function listViewModel() {
                 infoOnSchool.setIcon(selectedIcon);
                 return moreInfo(infoOnSchool, schoolInfoWindow);
             } else {
-                markers[i].setIcon(defaultIcon)
+                markers[i].setIcon(defaultIcon);
             }
         }
-    }
+    };
     self.expand = function(e) {
         drawer.classList.toggle('open');
-    }
+    };
 }
