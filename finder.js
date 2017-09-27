@@ -1,4 +1,5 @@
 
+  "use strict";
 var map, schoolInfoWindow, selectedIcon, defaultIcon;
 var markers = [];
 var positions = [];
@@ -53,15 +54,11 @@ function initMap() {
             });
             markers.push(marker);
 
-            marker.addListener('mouseover', function() {
-                this.setIcon(selectedIcon);
-            });
-            marker.addListener('mouseout', function() {
-                this.setIcon(defaultIcon);
-            });
-            marker.addListener('click', function() {
-                moreInfo(this, schoolInfoWindow);
-            });
+            marker.addListener('mouseover', highlight);
+
+            marker.addListener('mouseout', reset);
+
+            marker.addListener('click', moreInfo);
         }
         ko.applyBindings(new listViewModel());
     });
@@ -69,7 +66,12 @@ function initMap() {
         alert("Error");
     });
 }
-
+function highlight(){
+  this.setIcon(selectedIcon);
+}
+function reset(){
+  this.setIcon(defaultIcon);
+}
 
 function iconColor(pickColor) {
     var markerImage = new google.maps.MarkerImage(
@@ -83,8 +85,9 @@ function iconColor(pickColor) {
 }
 
 
-function moreInfo(marker, infowindow) {
-    infowindow.marker = marker;
+function moreInfo() {
+    var infowindow = schoolInfoWindow;
+    var marker = this;
     var service = new google.maps.StreetViewService();
     var radius = 50;
 
@@ -140,12 +143,10 @@ function listViewModel() {
     };
 
     self.getMarker = function(ident) {
-        var infoOnSchool;
         for (var i = 0; i < markers.length; i++) {
             if (markers[i].title === ident.name) {
-                infoOnSchool = markers[i];
-                infoOnSchool.setIcon(selectedIcon);
-                return moreInfo(infoOnSchool, schoolInfoWindow);
+                markers[i].setIcon(selectedIcon);
+                google.maps.event.trigger(markers[i],'click');
             } else {
                 markers[i].setIcon(defaultIcon);
             }
