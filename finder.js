@@ -1,5 +1,6 @@
+(function(){
 
-  "use strict";
+"use strict";
 var map, schoolInfoWindow, selectedIcon, defaultIcon;
 var markers = [];
 var positions = [];
@@ -156,3 +157,6 @@ function listViewModel() {
         drawer.classList.toggle('open');
     };
 }
+
+google.maps.event.addDomListener(window, "load", initMap);
+})();
