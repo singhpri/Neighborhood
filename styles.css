@@ -79,7 +79,7 @@
       margin: 0 0 20px 0;
       text-align: center;
   }
-  .drawer {
+  #drawer {
     z-index: 10;
     background-color: black;
     width: 300px;
@@ -91,7 +91,7 @@
     transition: transform 0.3s ease;
 
   }
-  .list {
+  .list #drawer{
     -webkit-transform: translate(0, 0);
     transform: translate(0, 0);
   }
