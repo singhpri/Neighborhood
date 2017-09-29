@@ -6,7 +6,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="styles.css">
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhEB5wCvm-NdmMI_G53GoFvtVGnzZe-0A&v=3"></script>
+
     <script src="finder.js"></script>
 </head>
 
@@ -21,7 +21,7 @@
             </a>
             <div id="drawer" class="list">
                 <div class="filter-box">
-                    <input type="text" id="myInput" placeholder="Search for names..">
+                    <input data-bind="textInput: input"/>
                     <button data-bind="click: mySchools">Filter</button>
                 </div>
                 <ul data-bind="foreach: school">
@@ -34,5 +34,5 @@
         <div id="map"></div>
     </div>
 </body>
-
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhEB5wCvm-NdmMI_G53GoFvtVGnzZe-0A&v=3&callback=initMap"></script>
 </html>

@@ -1,4 +1,3 @@
-(function() {
 
     var map, schoolInfoWindow, selectedIcon, defaultIcon;
     var markers = [];
@@ -131,7 +130,7 @@
         }
 
         self.mySchools = function() {
-            var input = document.getElementById('myInput');
+            this.input = ko.observable("Search for preschools...");
             var filter = input.value.toLowerCase();
             for (var i = 0; i < self.school().length; i++) {
                 if (self.school()[i].name.toLowerCase().indexOf(filter) > -1) {
@@ -158,5 +157,3 @@
             drawer.classList.toggle('open');
         };
     }
-    google.maps.event.addDomListener(window, "load", initMap);
-})();
