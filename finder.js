@@ -125,12 +125,13 @@
     function listViewModel() {
         var self = this;
         self.school = ko.observableArray([]);
+        self.input = ko.observable("Search for preschools...");
+        self.clickIcon = ko.observable(false);
         for (var i = 0; i < markers.length; i++) {
             self.school.push(new schoolList(markers[i].title, true));
         }
 
         self.mySchools = function() {
-            this.input = ko.observable("Search for preschools...");
             var filter = input.value.toLowerCase();
             for (var i = 0; i < self.school().length; i++) {
                 if (self.school()[i].name.toLowerCase().indexOf(filter) > -1) {
@@ -154,6 +155,6 @@
             }
         };
         self.expand = function(e) {
-            drawer.classList.toggle('open');
+            self.clickIcon(!self.clickIcon());
         };
     }
