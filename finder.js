@@ -1,8 +1,9 @@
-
+//declare the global variables
     var map, schoolInfoWindow, selectedIcon, defaultIcon;
     var markers = [];
     var positions = [];
 
+//callback function
     function initMap() {
 
         var redmond = {
@@ -13,7 +14,9 @@
             zoom: 12,
             center: redmond
         });
+        //define the InfoWindow
         schoolInfoWindow = new google.maps.InfoWindow();
+        //Ajax request to get yelp data
         var request = $.ajax({
             "async": true,
             "crossDomain": true,
@@ -66,8 +69,13 @@
         });
     }
 
+    function myFunction(){
+      alert("Error caught!");
+    }
+
     function highlight() {
         this.setIcon(selectedIcon);
+        setTimeout(reset, 5000);
     }
 
     function reset() {

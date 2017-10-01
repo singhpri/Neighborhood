@@ -19,7 +19,7 @@
                 <path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z"/>
               </svg>
             </a>
-            <div id="drawer" "css: {list: clickIcon() == true}">
+            <div id="drawer" data-bind="css : {'list' : clickIcon}">
                 <div class="filter-box">
                     <input data-bind="textInput: input"/>
                     <button data-bind="click: mySchools">Filter</button>
@@ -34,5 +34,5 @@
         <div id="map"></div>
     </div>
 </body>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhEB5wCvm-NdmMI_G53GoFvtVGnzZe-0A&v=3&callback=initMap"></script>
+<script async defer onerror="myFunction()" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhEB5wCvm-NdmMI_G53GoFvtVGnzZe-0A&v=3&callback=initMap"></script>
 </html>

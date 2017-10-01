@@ -89,18 +89,22 @@
     transform: translate(-300px, 0);
     /* Optionally, we animate the drawer. */
     transition: transform 0.3s ease;
-
   }
-  .list #drawer{
-    -webkit-transform: translate(0, 0);
-    transform: translate(0, 0);
+  .list{
+    -webkit-transform: translate(0, 0) !important;
+    transform: translate(0, 0) !important;
+
   }
   svg {
     top: 0px;
     left: 0px;
-    position: absolute;
     width: 32px;
     fill: #E0E0E0;
+ }
+ a {
+   top: 0px;
+   left: 0px;
+   position: absolute;
  }
 
 }
