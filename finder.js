@@ -33,6 +33,7 @@ function initMap() {
     });
     //Callback function once the data is finished loading
     request.done(function(data) {
+        console.log(data);
         var title, location;
         var schoolItem;
 
@@ -57,6 +58,7 @@ function initMap() {
                 icon: defaultIcon,
                 position: positions[j].location,
                 title: positions[j].title,
+                animation: google.maps.Animation.DROP,
                 map: map
             });
             markers.push(marker);
@@ -87,6 +89,7 @@ function highlight() {
 function reset() {
     this.setIcon(defaultIcon);
 }
+
 //this sets the desired color on the markers
 function iconColor(pickColor) {
     var markerImage = new google.maps.MarkerImage(
@@ -98,6 +101,8 @@ function iconColor(pickColor) {
         new google.maps.Size(21, 34));
     return markerImage;
 }
+
+
 
 //Creates the infowindow
 function moreInfo() {
@@ -111,10 +116,23 @@ function moreInfo() {
         infowindow.marker = null;
     });
 
+    function toggleBounce(marker) {
+        if (marker.getAnimation() !== null) {
+            marker.setAnimation(null);
+        } else {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
+    }
+
+
+
     this.setIcon(selectedIcon);
     for (var i = 0; i < markers.length; i++) {
         if (markers[i] !== marker) {
             markers[i].setIcon(defaultIcon);
+            markers[i].setAnimation(null);
+        } else {
+            toggleBounce(markers[i]);
         }
     }
     //displays street view image on infowindow
