@@ -21,7 +21,7 @@
             </a>
             <div id="drawer" data-bind="css : {'list' : clickIcon}">
                 <div class="filter-box">
-                    <input data-bind="textInput: input"/>
+                    <input class="input-box" data-bind="textInput: input" />
                     <button data-bind="click: mySchools">Filter</button>
                 </div>
                 <ul data-bind="foreach: school">
@@ -35,4 +35,5 @@
     </div>
 </body>
 <script async defer onerror="myFunction()" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhEB5wCvm-NdmMI_G53GoFvtVGnzZe-0A&v=3&callback=initMap"></script>
+
 </html>
