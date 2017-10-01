@@ -75,7 +75,6 @@
 
     function highlight() {
         this.setIcon(selectedIcon);
-        setTimeout(reset, 5000);
     }
 
     function reset() {
@@ -95,6 +94,7 @@
 
 
     function moreInfo() {
+
         var infowindow = schoolInfoWindow;
         var marker = this;
         var service = new google.maps.StreetViewService();
@@ -103,6 +103,12 @@
         infowindow.addListener('closeclick', function() {
             infowindow.marker = null;
         });
+        this.setIcon(selectedIcon);
+          for (var i = 0; i < markers.length; i++) {
+            if (markers[i] !== marker) {
+              markers[i].setIcon(defaultIcon);
+            }
+          }
 
         function processData(data, status) {
             if (status == google.maps.StreetViewStatus.OK) {
@@ -157,6 +163,7 @@
                 if (markers[i].title === ident.name) {
                     markers[i].setIcon(selectedIcon);
                     google.maps.event.trigger(markers[i], 'click');
+
                 } else {
                     markers[i].setIcon(defaultIcon);
                 }
