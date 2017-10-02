@@ -73,7 +73,7 @@ function initMap() {
             marker.addListener('click', moreInfo);
         }
         //Bind the markers to the viewmodel in knockout framework
-        ko.applyBindings(new listViewModel());
+        ko.applyBindings(new ListViewModel());
     });
     //Alert the user if the Yelp request fails to load
     request.fail(function() {
@@ -155,20 +155,20 @@ function moreInfo() {
     infowindow.open(map, marker);
 }
 //Constructor for the schoolList object -school name and a boolean
-function schoolList(name, flag) {
+function SchoolList(name, flag) {
     var self = this;
     self.name = name;
     self.flag = ko.observable(flag);
 }
 //create View model
-function listViewModel() {
+function ListViewModel() {
     var self = this;
     self.school = ko.observableArray([]);
     self.input = ko.observable("Search for preschools...");
     self.clickIcon = ko.observable(false);
     //Create schoolList objects
     for (var i = 0; i < markers.length; i++) {
-        self.school.push(new schoolList(markers[i].title, true));
+        self.school.push(new SchoolList(markers[i].title, true));
     }
     //Create a filter to selectively display schoolList objects
     self.mySchools = function() {
