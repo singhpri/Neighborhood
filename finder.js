@@ -42,9 +42,11 @@ function initMap() {
             location = data.businesses[i].coordinates;
             location.lat = data.businesses[i].coordinates.latitude;
             location.lng = data.businesses[i].coordinates.longitude;
+            rating = data.businesses[i].rating;
             schoolItem = {
                 title,
-                location
+                location,
+                rating
             };
             positions.push(schoolItem);
         }
@@ -58,6 +60,7 @@ function initMap() {
                 icon: defaultIcon,
                 position: positions[j].location,
                 title: positions[j].title,
+                rating: positions[j].rating,
                 animation: google.maps.Animation.DROP,
                 map: map
             });
@@ -102,8 +105,6 @@ function iconColor(pickColor) {
     return markerImage;
 }
 
-
-
 //Creates the infowindow
 function moreInfo() {
 
@@ -124,8 +125,6 @@ function moreInfo() {
         }
     }
 
-
-
     this.setIcon(selectedIcon);
     for (var i = 0; i < markers.length; i++) {
         if (markers[i] !== marker) {
@@ -139,7 +138,7 @@ function moreInfo() {
     function processData(data, status) {
         if (status == google.maps.StreetViewStatus.OK) {
             var nearStreetViewLocation = data.location.latLng;
-            infowindow.setContent('<div>' + marker.title + '</div><div id="pano"></div><div id="yelpInfo"></div>');
+            infowindow.setContent('<div>' + marker.title + '</div>'+ '<p>Yelp rating: '+ marker.rating+'</p><div id="pano"></div><div id="yelpInfo"></div>');
             var panorama = new google.maps.StreetViewPanorama(
                 document.getElementById('pano'), {
                     position: nearStreetViewLocation,

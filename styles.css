@@ -1,114 +1,114 @@
-    html,
-    body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
 
-    #map {
-        bottom: 0px;
-        height: 100%;
-        left: 350px;
-        position: absolute;
-        right: 0px;
-    }
-
-    .container {
-        height: 100%;
-        position: relative;
-        background-color: black;
-    }
-
-    .list-box {
-        width: 340px;
-    }
-
-    li:hover {
-        color: pink;
-        cursor: pointer;
-    }
-
-    li {
-        color: gray;
-        list-style-type: none;
-        margin: 0 0 5px 0;
-    }
-
-    button {
-        cursor: pointer;
-    }
-
-    .filter-box {
-        text-align: center;
-        margin: 0 0 30px 0;
-    }
-    
-    .input-box {
-      width: 280px;
-    }
-
-    #myInput {
-        width: 285px;
-    }
-
-    h1 {
-        color: gray;
-        font-size: 48px;
-        margin: 0 0 20px 0;
-        text-align: center;
-    }
-
-    #pano {
-        width: 200px;
-        height: 200px;
-    }
-    svg {
-      width: 0;
-    }
-
- @media screen and (max-width: 699px) {
-
-  #map {
-      top: 40px;
-      bottom: 0px;
-      height: 100%;
-      left: 40px;
-      position: absolute;
-      right: 0px;
-  }
-
-  h1 {
-      color: gray;
-      font-size: 28px;
-      margin: 0 0 20px 0;
-      text-align: center;
-  }
-  #drawer {
-    z-index: 10;
-    background-color: black;
-    width: 300px;
+#map {
+    bottom: 0px;
+    height: 100%;
+    left: 350px;
     position: absolute;
-    /* This trasform moves the drawer off canvas. */
-    -webkit-transform: translate(-300px, 0);
-    transform: translate(-300px, 0);
-    /* Optionally, we animate the drawer. */
-    transition: transform 0.3s ease;
-  }
-  .list{
-    -webkit-transform: translate(0, 0) !important;
-    transform: translate(0, 0) !important;
+    right: 0px;
+}
 
-  }
-  svg {
-    top: 0px;
-    left: 0px;
-    width: 32px;
-    fill: #E0E0E0;
- }
- a {
-   top: 0px;
-   left: 0px;
-   position: absolute;
- }
+.container {
+    height: 100%;
+    position: relative;
+    background-color: black;
+}
+
+.list-box {
+    width: 340px;
+}
+
+li:hover {
+    color: pink;
+    cursor: pointer;
+}
+
+li {
+    color: gray;
+    list-style-type: none;
+    margin: 0 0 5px 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+.filter-box {
+  text-align: center;
+  margin: 0 0 30px 0;
+}
+
+.input-box {
+  width: 280px;
+}
+
+#myInput {
+  width: 285px;
+}
+
+h1 {
+  color: gray;
+  font-size: 48px;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+#pano {
+  width: 200px;
+  height: 200px;
+}
+
+svg {
+  width: 0;
+}
+
+@media screen and (max-width: 699px) {
+
+#map {
+  top: 40px;
+  bottom: 0px;
+  height: 100%;
+  left: 40px;
+  position: absolute;
+  right: 0px;
+}
+
+h1 {
+  color: gray;
+  font-size: 28px;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+#drawer {
+  z-index: 10;
+  background-color: black;
+  width: 300px;
+  position: absolute;
+  /* This trasform moves the drawer off canvas. */
+  -webkit-transform: translate(-300px, 0);
+  transform: translate(-300px, 0);
+  /* Optionally, we animate the drawer. */
+  transition: transform 0.3s ease;
+}
+.list{
+  -webkit-transform: translate(0, 0) !important;
+  transform: translate(0, 0) !important;
+
+}
+svg {
+  top: 0px;
+  left: 0px;
+  width: 32px;
+  fill: #E0E0E0;
+}
+a {
+  top: 0px;
+  left: 0px;
+  position: absolute;
+}
 
 }
