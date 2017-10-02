@@ -148,7 +148,7 @@ function moreInfo() {
                     }
                 });
         } else {
-            infowindow.setContent('<div>' + marker.title + '</div><div>The image is not found.</div>');
+            infowindow.setContent('<div>' + marker.title + '</div>' + '<p>Yelp rating: '+ marker.rating+'</p><div>The image is not found.</div>');
         }
     }
     service.getPanoramaByLocation(marker.position, radius, processData);
